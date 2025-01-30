@@ -1,0 +1,7 @@
+{
+  "name": "franjo-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

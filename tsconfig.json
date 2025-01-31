@@ -17,9 +17,37 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2022",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
     "module": "es2020",
-    "lib": ["es2018", "dom"],
-    "useDefineForClassFields": false
+    "lib": [
+      "es2018",
+      "dom"
+    ],
+    "useDefineForClassFields": false,
+    "paths": {
+        "@assets/*": [ "src/assets/*" ],
+        "@pages/*": [ "src/core/pages/*" ],
+        "@theme": [ "src/theme" ],
+        "@mocks/*": [ "src/shared/mocks/*" ],
+        "@constants/*": [ "src/shared/constants/*" ],
+        "@interfaces/*": [ "src/shared/interfaces/*" ],
+        "@custom-types/*": [ "src/shared/custom-types/*" ],
+        "@interceptors/*": [ "src/shared/interceptors/*" ],
+        "@services/*": [ "src/shared/services/*" ],
+        "@directives/*": [ "src/shared/directives/*" ],
+        "@pipes/*": [ "src/shared/pipes/*" ],
+        "@providers/*": [ "src/shared/providers/*" ],
+        "@validators/*": [ "src/shared/validators/*" ],
+        "@components/*": [ "src/shared/components/*" ],
+        "@guards/*": [ "src/shared/guards/*" ],
+        "@util": [ "src/shared/utils/utils.ts" ],
+        "@utils/*": [ "src/shared/utils/*" ],
+        "@env": [ "src/environments/environment" ],
+        "@app/*": [ "src/app/*" ],
+        "@widgets/*": [ "serc/shared/widgets/*" ],
+      }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

@@ -1,0 +1,9 @@
+<div class="main-container">
+  <div class="title">Bienvenido</div>
+  <div class="names">{{ userData.names }}</div>
+  <button type="button" class="btn-primary std sign-up" (click)="enterTheSite()">Ingresar</button>
+
+  <div class="forgot-password">
+    <a (click)="logout()" (keyup.enter)="'() => null'" tabindex="0">Usar otra cuenta</a>
+  </div>
+</div>

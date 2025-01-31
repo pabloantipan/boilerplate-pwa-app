@@ -1,0 +1,24 @@
+<div class="main-container">
+  <div [formGroup]="form" class="form">
+    <div class="input-field">
+      <input type="email" class="field-primary email" formControlName="email" placeholder="Email"
+        (blur)="updateEmailErrorMessage()" />
+      @if (passwordFormControl.invalid) {
+      <div class="error-label">{{ emailErrorMessage() }}</div>
+      }
+    </div>
+    <div class="input-field">
+      <input type="password" class="field-primary password" formControlName="password" placeholder="Password"
+        (blur)="updatePasswordErrorMessage()" />
+      @if (passwordFormControl.invalid) {
+      <div class="error-label">{{ passwordErrorMessage() }}</div>
+      }
+    </div>
+    <button type="button" class="btn-primary std sign-up" [disabled]="signUpButtonDisabled" (click)="signIn()"
+      [ngClass]="{'disabled': signUpButtonDisabled}">Ingresar</button>
+
+    <div class="forgot-password">
+      <a href="#">¿Olvidaste tu contraseña?</a>
+    </div>
+  </div>
+</div>

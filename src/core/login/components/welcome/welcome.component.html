@@ -1,9 +1,20 @@
 <div class="main-container">
-  <div class="title">Bienvenido</div>
-  <div class="names">{{ userData.names }}</div>
-  <button type="button" class="btn-primary std sign-up" (click)="enterTheSite()">Ingresar</button>
 
-  <div class="forgot-password">
-    <a (click)="logout()" (keyup.enter)="'() => null'" tabindex="0">Usar otra cuenta</a>
-  </div>
+  <ion-content class="ion-padding">
+    <div class="login-container">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title class="ion-text-center">Bienvenido {{ userData.names }}</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-button type="button" class="btn-primary std sign-up" (click)="enterTheSite()">Ingresar</ion-button>
+          <ion-button xpand="block" fill="clear" class="ion-margin-top">
+            <a (click)="logout()" (keyup.enter)="'() => null'" tabindex="0">Usar otra cuenta</a>
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </ion-content>
+
 </div>

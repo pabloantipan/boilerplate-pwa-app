@@ -14,7 +14,6 @@
               <ion-label position="floating">Email</ion-label>
               <ion-input type="email" formControlName="email"></ion-input>
             </ion-item>
-
             <div class="error-label">
               @if ( emailFormControl.invalid ) { {{ emailErrorMessage() }} }
             </div>
@@ -23,7 +22,6 @@
               <ion-label position="floating">Password</ion-label>
               <ion-input type="password" formControlName="password"></ion-input>
             </ion-item>
-
             <div class="error-label">
               @if ( passwordFormControl.invalid ) { {{ passwordErrorMessage() }} }
             </div>
@@ -41,6 +39,5 @@
       </ion-card>
     </div>
   </ion-content>
-
 
 </div>

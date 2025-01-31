@@ -28,8 +28,8 @@
               @if ( passwordFormControl.invalid ) { {{ passwordErrorMessage() }} }
             </div>
 
-            <ion-button expand="block" class="ion-margin-top" type="submit" [disabled]="signUpButtonDisabled"
-              (click)="signIn()" [ngClass]="{'disabled': signUpButtonDisabled}">
+            <ion-button expand="block" class="ion-margin-top" type="submit" [disabled]="signInButtonDisabled"
+              (click)="signIn()" [ngClass]="{'disabled': signInButtonDisabled}">
               Ingresar
             </ion-button>
 

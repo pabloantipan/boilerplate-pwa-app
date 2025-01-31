@@ -1,35 +1,51 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component, forwardRef, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { Session } from '@login/interfaces/auth.interfaces';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  NG_VALUE_ACCESSOR,
+  ReactiveFormsModule, Validators
+} from '@angular/forms';
+import {
+  IonButton, IonCard, IonCardContent,
+  IonCardHeader, IonCardSubtitle,
+  IonCardTitle, IonContent,
+  IonInput, IonItem, IonLabel
+} from "@ionic/angular/standalone";
 import { SessionProvider } from '@login/providers/session.provider';
 import { merge } from 'rxjs';
 
 @Component({
   selector: 'app-sign-up',
   imports: [
-    RouterModule,
     CommonModule,
+    IonButton,
+    IonCardContent,
+    IonCardSubtitle,
+    IonCardTitle,
+    IonCardHeader,
+    IonCard,
+    IonLabel,
+    IonItem,
+    IonContent,
+    IonInput,
     ReactiveFormsModule,
+  ],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => IonInput),
+      multi: true,
+    },
   ],
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss'],
 })
 export class SignUpComponent {
   signUpButtonDisabled = true;
-
-  form = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
-    passwordTwice: new FormControl('', [Validators.required, Validators.minLength(8)]),
-  });
-
-  emailFormControl = this.form.get('email') as any;
-  passwordFormControl = this.form.get('password') as any;
-  passwordTwiceFormControl = this.form.get('passwordTwice') as any;
-
+  form: FormGroup;
   emailErrorMessage = signal('');
   passwordErrorMessage = signal('');
   passwordTwiceErrorMessage = signal('');
@@ -38,7 +54,14 @@ export class SignUpComponent {
 
   constructor(
     private readonly sessionProvider: SessionProvider,
+    private formBuilder: FormBuilder,
   ) {
+    this.form = this.formBuilder.group({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+      passwordTwice: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    });
+
     this.showEmailValidationErrorMessage();
     this.subscribePasswordValidation();
     this.subscribeSignUpButtonDisabled();
@@ -48,6 +71,16 @@ export class SignUpComponent {
 
     this.subscribePasswordDontMachValidation();
     this.subscribeSignUpButtonDisabled();
+  }
+
+  public get emailFormControl() {
+    return this.form.get('email') as any;
+  }
+  public get passwordFormControl() {
+    return this.form.get('password') as any;
+  }
+  public get passwordTwiceFormControl() {
+    return this.form.get('passwordTwice') as any;
   }
 
   public signUp() {
@@ -167,19 +200,6 @@ export class SignUpComponent {
         next: () => this.updatePasswordDontMachErrorMessage(),
         error: (error: any) => console.error(error),
       });
-  }
-
-  private handleSignUpError(session: Session) {
-    // this.openSnackBar(session.error?.message ?? '', 'Cerrar');
-    // this.showOkButtonForRegistrationCanceling = true;
-
-    new Promise((resolve, reject) => {
-      setTimeout(() => {
-        // this.resetLoginFlow();
-        // this.showOkButtonForRegistrationCanceling = false;
-        return resolve(null);
-      }, 3000);
-    });
   }
 
 }

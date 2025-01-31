@@ -1,30 +1,53 @@
 <div class="main-container">
-  <div [formGroup]="form" class="form">
-    <div class="input-field">
-      <input type="email" class="field-primary email" formControlName="email" placeholder="Email"
-        (blur)="updateEmailErrorMessage()" />
-      @if (passwordFormControl.invalid) {
-      <div class="error-label">{{ emailErrorMessage() }}</div>
-      }
+  <ion-content class="ion-padding">
+    <div class="login-container">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title class="ion-text-center">Bienvenido!</ion-card-title>
+          <ion-card-subtitle class="ion-text-center">Registrate para continuar</ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-card-content>
+          <form [formGroup]="form">
+            <ion-item>
+              <ion-label position="floating">Email</ion-label>
+              <ion-input type="email" formControlName="email"></ion-input>
+            </ion-item>
+            <div class="error-label">
+              @if ( emailFormControl.invalid ) { {{ emailErrorMessage() }} }
+            </div>
+
+            <ion-item class="ion-margin-top">
+              <ion-label position="floating">Ingresa un password</ion-label>
+              <ion-input type="password" formControlName="password"></ion-input>
+            </ion-item>
+            <div class="error-label">
+              @if ( passwordFormControl.invalid ) { {{ passwordErrorMessage() }} }
+            </div>
+
+            <ion-item class="ion-margin-top">
+              <ion-label position="floating">Repite el password</ion-label>
+              <ion-input type="password" formControlName="passwordTwice"></ion-input>
+            </ion-item>
+            <div class="error-label">
+              @if ( passwordTwiceFormControl.invalid ) { {{ passwordTwiceErrorMessage() }} }
+            </div>
+
+            <ion-button expand="block" class="ion-margin-top" type="submit" [disabled]="signUpButtonDisabled"
+              (click)="signUp()" [ngClass]="{'disabled': signUpButtonDisabled}">
+              Registrar
+            </ion-button>
+
+            <div class="not-mach-error">
+              <div class="error-label">{{ passwordDontMachErrorMessage() }}</div>
+            </div>
+
+
+          </form>
+        </ion-card-content>
+      </ion-card>
     </div>
-    <div class="input-field">
-      <input type="password" class="field-primary password" formControlName="password" placeholder="Password"
-        (blur)="updatePasswordErrorMessage()" />
-      @if (passwordFormControl.invalid) {
-      <div class="error-label">{{ passwordErrorMessage() }}</div>
-      }
-    </div>
-    <div class="input-field">
-      <input type="password" class="field-primary password" formControlName="passwordTwice" placeholder="Password"
-        (blur)="updatePasswordTwiceErrorMessage()" />
-      @if (passwordFormControl.invalid) {
-      <div class="error-label">{{ passwordTwiceErrorMessage() }}</div>
-      }
-    </div>
-    <button type="button" class="btn-primary std sign-up" [disabled]="signUpButtonDisabled" (click)="signUp()"
-      [ngClass]="{'disabled': signUpButtonDisabled}">Registrar</button>
-  </div>
-  <div class="not-mach-error">
-    <div class="error-label">{{ passwordDontMachErrorMessage() }}</div>
-  </div>
+  </ion-content>
+
+
 </div>

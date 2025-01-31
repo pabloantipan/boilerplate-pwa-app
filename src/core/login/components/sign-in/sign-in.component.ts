@@ -46,17 +46,8 @@ import { merge } from 'rxjs';
   styleUrls: ['./sign-in.component.scss'],
 })
 export class SignInComponent {
-  signUpButtonDisabled = true;
+  signInButtonDisabled = true;
   form: FormGroup;
-
-  public get emailFormControl() {
-    return this.form.get('email') as any;
-  }
-
-  public get passwordFormControl() {
-    return this.form.get('password') as any;
-  }
-
   emailErrorMessage = signal('');
   passwordErrorMessage = signal('');
   signUpAuthErrorMessage = signal('');
@@ -76,9 +67,16 @@ export class SignInComponent {
     this.showEmailValidationErrorMessage();
     this.subscribePasswordValidation();
     this.subscribePasswordOnceValidation();
-    this.subscribeSignUpButtonDisabled();
+    this.subscribesignInButtonDisabled();
   }
 
+  public get emailFormControl() {
+    return this.form.get('email') as any;
+  }
+
+  public get passwordFormControl() {
+    return this.form.get('password') as any;
+  }
 
   public signIn() {
     const { email, password } = this.form.getRawValue();
@@ -172,14 +170,14 @@ export class SignInComponent {
       });
   }
 
-  private subscribeSignUpButtonDisabled() {
+  private subscribesignInButtonDisabled() {
     merge(
       this.emailFormControl.statusChanges,
       this.passwordFormControl.statusChanges,
     ).pipe(takeUntilDestroyed())
       .subscribe({
         next: () => {
-          this.signUpButtonDisabled = !(
+          this.signInButtonDisabled = !(
             this.emailFormControl.valid
             && this.passwordFormControl.valid
           );

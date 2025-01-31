@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { SessionProvider } from 'login/providers/session.provider';
+import { SessionProvider } from '@login/providers/session.provider';
 
 @Component({
   selector: 'app-welcome',

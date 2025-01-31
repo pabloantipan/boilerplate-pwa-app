@@ -6,9 +6,8 @@ import {
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
-  UserCredential
 } from '@angular/fire/auth';
-import { AuthException, InvalidCredentialsException, UnconfirmedEmailException } from 'login/exceptions/exceptions';
+import { AuthException, InvalidCredentialsException, UnconfirmedEmailException } from '@login/exceptions/exceptions';
 
 
 @Injectable({ providedIn: 'root' })
@@ -17,16 +16,16 @@ export class AuthService {
 
   constructor() { }
 
-  public async signIn(email: string, password: string): Promise<UserCredential> {
+  public async signIn(email: string, password: string): Promise<any> {
     return signInWithEmailAndPassword(this.auth, email, password)
-      .then((userCredential) => {
+      .then((userCredential: { user: { emailVerified: any; }; }) => {
         console.log('userCredential', userCredential);
         if (!userCredential.user.emailVerified) {
           throw new UnconfirmedEmailException('Please confirm your email');
         }
         return userCredential;
       })
-      .catch((error) => {
+      .catch((error: AuthException) => {
         if (error instanceof AuthException) {
           this.handleError(error)
         }
@@ -41,7 +40,7 @@ export class AuthService {
 
   public async signUp(email: string, password: string) {
     return createUserWithEmailAndPassword(this.auth, email, password)
-      .then((userCredential: UserCredential) => {
+      .then((userCredential: any) => {
         sendEmailVerification(userCredential.user);
         return userCredential;
       })
@@ -52,7 +51,7 @@ export class AuthService {
   }
 
   public async sendEmailVerification() {
-    const userCredential = this.auth.currentUser;
+    const userCredential = (this.auth as any).currentUser;
     return sendEmailVerification(userCredential ?? {} as any);
   }
 

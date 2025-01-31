@@ -1,0 +1,23 @@
+:root {
+  /** Icons and Images **/
+  --icon-food: url(../../public/icons/food.png);
+  --icon-email-dark: url(../../public/icons/chat-floating.svg);
+
+  .icon {
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .i-food {
+    @extend .icon;
+    background-image: var(--icon-food);
+  }
+
+  .i-chat-floating {
+    @extend .icon;
+    background-image: var(--icon-chat-floating);
+  }
+
+
+
+}

@@ -1,11 +1,14 @@
 import { inject, Injectable } from '@angular/core';
-import { Auth, authState, idToken, User } from '@angular/fire/auth';
-import { LocalStorage, NotificationBucketProvider, SessionStorage } from '@front-lib';
-import { VaultKeyProvider } from '@providers/vault-key/vault-key.provider';
-import { SESSION_STORAGE_KEYS } from 'login/constants/session.constants';
-import { observeConfirmationEmailSending } from 'login/functions/send-confirmation-email.function';
-import { DEFAULT_SESSION, Session, SessionStatus } from 'login/interfaces/auth.interfaces';
-import { AuthService } from 'login/services/auth.service';
+import { Auth, authState, idToken } from '@angular/fire/auth';
+// import { LocalStorage, NotificationBucketProvider, SessionStorage } from '@front-lib';
+// import { VaultKeyProvider } from '@providers/vault-key/vault-key.provider';
+import { SESSION_STORAGE_KEYS } from '@login/constants/session.constants';
+import { observeConfirmationEmailSending } from '@login/functions/send-confirmation-email.function';
+import { DEFAULT_SESSION, Session, SessionStatus } from '@login/interfaces/auth.interfaces';
+import { AuthService } from '@login/services/auth.service';
+import { LocalStorage } from '@shared/browser-storage/local-storage';
+import { SessionStorage } from '@shared/browser-storage/session-storage';
+import { NotificationBucketProvider } from '@shared/widgets/notification-bucket';
 import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
@@ -21,13 +24,13 @@ export class SessionProvider {
   }
 
   constructor(
-    private readonly vaultKeyProvider: VaultKeyProvider,
+    // private readonly vaultKeyProvider: VaultKeyProvider,
     private readonly authService: AuthService,
     private readonly localStorage: LocalStorage,
     private readonly sessionStorage: SessionStorage,
     private notificationBucketProvider: NotificationBucketProvider,
   ) {
-    this._authState$.subscribe(async (fbUser: User | null) => {
+    this._authState$.subscribe(async (fbUser: any | null) => {
       console.log('fbUser', fbUser);
       // this.sessionStorage.clear();
       // this.localStorage.clear();
@@ -53,7 +56,6 @@ export class SessionProvider {
         liveSpanSec: 10,
         permanent: false,
       });
-
     });
 
     this.notificationBucketProvider.addNotification({

@@ -1,0 +1,75 @@
+
+@use '../../../../theme/layout.scss';
+@import '../../../../theme/colors.scss';
+
+.main-layout-container {
+  // width: 95%;
+  // margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  width: layout.$wrapper-width;
+  height: layout.$wrapper-height;
+}
+
+.header {
+  width: layout.$header-width;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.navigation-menu {}
+
+.content {
+  width: layout.$content-width;
+  height: layout.$content-height;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  background-color: #f0f0f0;
+
+  overflow: auto;
+}
+
+.footer {
+  width: layout.$footer-width;
+}
+
+// Small devices (landscape phones, 576px and up)
+
+@media (min-width: 576px) {
+
+  // Medium devices (tablets, 768px and up)
+
+  @media (min-width: 768px) {
+
+    .main-layout-container {
+      width: 90%;
+      margin: 0 auto;
+    }
+
+    .content {
+      width: 70%;
+      float: left;
+    }
+
+    // Large devices (desktops, 992px and up)
+
+    @media (min-width: 992px) {}
+
+  }
+
+  // Extra large devices (large desktops, 1200px and up)
+
+  @media (min-width: 1200px) {
+    .main-layout-container {
+      width: 90%;
+      margin: 0 auto;
+    }
+  }
+}

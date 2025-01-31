@@ -3,7 +3,7 @@ import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'io.ionic.starter',
-  appName: 'franjo-app',
+  appName: 'boilerplate-pwa-app',
   webDir: 'www',
   server: {
     androidScheme: 'https'

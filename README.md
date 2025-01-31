@@ -4,7 +4,7 @@
 A Progressive Web Application (PWA) built with Ionic and Angular, featuring native capabilities through Capacitor.
 
 ## Prerequisites
-- Node.js (v14 or higher)
+- Node.js (v22)
 - npm (v6 or higher)
 - Android Studio (for Android builds)
 - Java Development Kit (JDK) 17

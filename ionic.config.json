@@ -1,5 +1,5 @@
 {
-  "name": "franjo-app",
+  "name": "boilerplate-pwa-app",
   "integrations": {
     "capacitor": {}
   },

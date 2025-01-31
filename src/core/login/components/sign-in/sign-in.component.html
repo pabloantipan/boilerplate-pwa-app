@@ -1,24 +1,46 @@
 <div class="main-container">
-  <div [formGroup]="form" class="form">
-    <div class="input-field">
-      <input type="email" class="field-primary email" formControlName="email" placeholder="Email"
-        (blur)="updateEmailErrorMessage()" />
-      @if (passwordFormControl.invalid) {
-      <div class="error-label">{{ emailErrorMessage() }}</div>
-      }
-    </div>
-    <div class="input-field">
-      <input type="password" class="field-primary password" formControlName="password" placeholder="Password"
-        (blur)="updatePasswordErrorMessage()" />
-      @if (passwordFormControl.invalid) {
-      <div class="error-label">{{ passwordErrorMessage() }}</div>
-      }
-    </div>
-    <button type="button" class="btn-primary std sign-up" [disabled]="signUpButtonDisabled" (click)="signIn()"
-      [ngClass]="{'disabled': signUpButtonDisabled}">Ingresar</button>
 
-    <div class="forgot-password">
-      <a href="#">¿Olvidaste tu contraseña?</a>
+  <ion-content class="ion-padding">
+    <div class="login-container">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title class="ion-text-center">Welcome Back</ion-card-title>
+          <ion-card-subtitle class="ion-text-center">Sign in to continue</ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-card-content>
+          <form [formGroup]="form">
+            <ion-item>
+              <ion-label position="floating">Email</ion-label>
+              <ion-input type="email" formControlName="email"></ion-input>
+            </ion-item>
+
+            <div class="error-label">
+              @if ( emailFormControl.invalid ) { {{ emailErrorMessage() }} }
+            </div>
+
+            <ion-item class="ion-margin-top">
+              <ion-label position="floating">Password</ion-label>
+              <ion-input type="password" formControlName="password"></ion-input>
+            </ion-item>
+
+            <div class="error-label">
+              @if ( passwordFormControl.invalid ) { {{ passwordErrorMessage() }} }
+            </div>
+
+            <ion-button expand="block" class="ion-margin-top" type="submit" [disabled]="signUpButtonDisabled"
+              (click)="signIn()" [ngClass]="{'disabled': signUpButtonDisabled}">
+              Ingresar
+            </ion-button>
+
+            <ion-button expand="block" fill="clear" class="ion-margin-top">
+              ¿Olvidaste tu contraseña?
+            </ion-button>
+          </form>
+        </ion-card-content>
+      </ion-card>
     </div>
-  </div>
+  </ion-content>
+
+
 </div>

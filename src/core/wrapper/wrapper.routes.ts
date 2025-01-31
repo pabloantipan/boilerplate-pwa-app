@@ -21,10 +21,10 @@ export const wrapperRoutes: Route[] = [
       //   path: 'showcase',
       //   loadComponent: () => import('../pages/showcase/showcase.page').then(r => r.ShowcasePageComponent),
       // },
-      {
-        path: '**',
-        redirectTo: 'home',
-      }
+      // {
+      //   path: '**',
+      //   redirectTo: 'home',
+      // }
     ],
   },
 ];

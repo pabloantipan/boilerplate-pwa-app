@@ -1,11 +1,19 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component, forwardRef, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder, FormControl, FormGroup, NG_VALUE_ACCESSOR,
+  ReactiveFormsModule, Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
+import {
+  IonButton, IonCard, IonCardContent,
+  IonCardHeader, IonCardSubtitle,
+  IonCardTitle, IonContent,
+  IonInput, IonItem, IonLabel
+} from "@ionic/angular/standalone";
 import { InvalidCredentialsException, UnconfirmedEmailException } from '@login/exceptions/exceptions';
 import { sendConfirmationEmail } from '@login/functions/send-confirmation-email.function';
-import { Session } from '@login/interfaces/auth.interfaces';
 import { SessionProvider } from '@login/providers/session.provider';
 import { NotificationBucketProvider } from '@shared/widgets/notification-bucket';
 import { merge } from 'rxjs';
@@ -14,7 +22,24 @@ import { merge } from 'rxjs';
   standalone: true,
   imports: [
     CommonModule,
+    IonButton,
+    IonCardContent,
+    IonCardSubtitle,
+    IonCardTitle,
+    IonCardHeader,
+    IonCard,
+    IonLabel,
+    IonItem,
+    IonContent,
+    IonInput,
     ReactiveFormsModule,
+  ],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => IonInput),
+      multi: true,
+    },
   ],
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
@@ -22,15 +47,15 @@ import { merge } from 'rxjs';
 })
 export class SignInComponent {
   signUpButtonDisabled = true;
+  form: FormGroup;
 
-  form = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
-    passwordTwice: new FormControl('', [Validators.required, Validators.minLength(8)]),
-  });
+  public get emailFormControl() {
+    return this.form.get('email') as any;
+  }
 
-  emailFormControl = this.form.get('email') as any;
-  passwordFormControl = this.form.get('password') as any;
+  public get passwordFormControl() {
+    return this.form.get('password') as any;
+  }
 
   emailErrorMessage = signal('');
   passwordErrorMessage = signal('');
@@ -40,12 +65,20 @@ export class SignInComponent {
     private readonly sessionProvider: SessionProvider,
     private notificationBucketProvider: NotificationBucketProvider,
     private router: Router,
+    private formBuilder: FormBuilder,
   ) {
+
+    this.form = this.formBuilder.group({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    });
+
     this.showEmailValidationErrorMessage();
     this.subscribePasswordValidation();
     this.subscribePasswordOnceValidation();
     this.subscribeSignUpButtonDisabled();
   }
+
 
   public signIn() {
     const { email, password } = this.form.getRawValue();
@@ -155,16 +188,4 @@ export class SignInComponent {
       });
   }
 
-  private handleSignUpError(session: Session) {
-    // this.openSnackBar(session.error?.message ?? '', 'Cerrar');
-    // this.showOkButtonForRegistrationCanceling = true;
-
-    new Promise((resolve, reject) => {
-      setTimeout(() => {
-        // this.resetLoginFlow();
-        // this.showOkButtonForRegistrationCanceling = false;
-        return resolve(null);
-      }, 3000);
-    });
-  }
 }

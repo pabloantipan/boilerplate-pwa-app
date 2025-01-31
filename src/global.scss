@@ -1,3 +1,10 @@
+@use './theme/variables.scss';
+@use './theme/icons.scss';
+@use './theme/colors.scss';
+@use './theme/mixins.scss';
+@use './theme/breakpoints.scss';
+@use './theme/layout.scss';
+
 /*
  * App Global CSS
  * ----------------------------------------------------------------------------
@@ -36,9 +43,3 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
 
-@import './theme/variables.scss';
-@import './theme/icons.scss';
-@import './theme/colors.scss';
-@import './theme/mixins.scss';
-@import './theme/breakpoints.scss';
-@import './theme/layout.scss';
